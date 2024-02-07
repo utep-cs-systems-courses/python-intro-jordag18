@@ -11,7 +11,7 @@ def count_words(input_file, output_file):
 
     # Compile a regular expression pattern for matching words (including hyphenated words)
     # This pattern matches sequences of alphanumeric characters and hyphens but excludes leading or trailing hyphens
-    word_pattern = re.compile(r'\b[\w-]+\b')
+    word_pattern = re.compile(r'\b[\w]+\b')
 
     # Open the input file and read contents
     with open(input_file, 'r') as file:
@@ -21,14 +21,10 @@ def count_words(input_file, output_file):
 
             # Process each word
             for word in words:
-                # Split hyphenated words into separate words
-                subwords = word.split('-')
-                for subword in subwords:
-                    # Increment the count for each subword
-                    if subword in word_counts:
-                        word_counts[subword] += 1
-                    else:
-                        word_counts[subword] = 1
+                if word in word_counts:
+                    word_counts[word] += 1
+                else:
+                    word_counts[word] = 1
 
     # Sort the words alphabetically
     sorted_words = sorted(word_counts.items())
